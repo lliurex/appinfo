@@ -51,13 +51,19 @@ def _render_gui():
 	def _begin_search_app(*args):
 			info=_search_app(inp_input.get_text())
 			if info:
-				lbl_result.set_markup(_("Package: %s %s %s\nOrigin: %s\n<span color='blue'><span underline='single'>More details</span>...</span>")%(info['package'],info['version'],info['arch'],info['origin']))
+				desc_md=_("<small>Package:</small> %s %s %s\n<small>Origin:</small> %s\n<span color='blue'><sub><span underline='single'>More details</span>...</sub></span>")%(info['package'],info['version'],info['arch'],info['origin'])
+				desc_txt=_("Package: %s %s %s\nOrigin: %s")%(info['package'],info['version'],info['arch'],info['origin'])
+				lbl_result.set_markup(desc_md)
+				btn_result.set_tooltip_text(desc_txt)
 				lbl_policy.set_markup("%s"%info['policy'])
 			else:
 				lbl_result.set_label(_("Package not found/not installed"))
 				lbl_policy.set_markup("")
 			box_btn_result.set_no_show_all(False)
+			btn_result.set_no_show_all(False)
 			btn_result.show_all()
+			if rvl_result.get_reveal_child():
+				_toggle_reveal()
 
 	def _toggle_reveal(*args):
 		rvl_result.set_reveal_child(not(rvl_result.get_reveal_child()))
@@ -66,6 +72,7 @@ def _render_gui():
 			size=window.get_size()
 		if rvl_result.get_reveal_child():
 			rvl_result.set_visible(True)
+			btn_result.set_size_request(size.width,-1)
 		else:
 			rvl_result.set_visible(False)
 			window.resize(size.width,size.height)
@@ -75,10 +82,12 @@ def _render_gui():
 
 	_set_css_info()
 	window=Gtk.Window()
-	window.connect("destroy",Gtk.main_quit)
+	window.set_position(Gtk.WindowPosition.CENTER)
 	window.set_resizable(False)
 	window.set_title("appinfo")
+	window.connect("destroy",Gtk.main_quit)
 	clipboard=Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
+
 	box=Gtk.VBox()
 	pb=GdkPixbuf.Pixbuf.new_from_file("%s/appinfo.png"%RSRC_DIR)
 	img_banner=Gtk.Image.new_from_pixbuf(pb)
@@ -115,31 +124,45 @@ def _render_gui():
 	box_search.add(btn_search)
 	box.add(box_search)
 	btn_result=Gtk.Button()
+	btn_result.set_margin_top(MARGIN)
+	btn_result.set_margin_left(MARGIN)
+	btn_result.set_margin_right(MARGIN)
+	btn_result.set_margin_bottom(MARGIN)
+	btn_result.set_name("BTN_ITEM")
 	btn_result.connect("clicked",_toggle_reveal)
 	btn_result.set_valign(Gtk.Align.START)
+	btn_result.set_no_show_all(True)
 	box_btn_result=Gtk.Box()
 	lbl_result=Gtk.Label()
+	lbl_result.set_hexpand(False)
+	lbl_result.set_halign(Gtk.Align.START)
+	lbl_result.set_ellipsize(Pango.EllipsizeMode.END)
+#	lbl_result.set_line_wrap(True)
+	lbl_result.set_max_width_chars(35)
 	box_btn_result.add(lbl_result)
 	btn_result.add(box_btn_result)
 	box_btn_result.set_no_show_all(True)
 	box.add(btn_result)
 
-
+	#Container for label
+	box_scroll_result=Gtk.ScrolledWindow()
+	box_scroll_result.set_policy(Gtk.PolicyType.AUTOMATIC,Gtk.PolicyType.NEVER)
 	rvl_result=Gtk.Revealer()
 	box_result=Gtk.VBox()
 	box_result.set_valign(Gtk.Align.START)
-	rvl_result.add(box_result)
 	lbl_policy=Gtk.Label()
 	lbl_policy.set_single_line_mode(False)
 	lbl_policy.set_margin_left(MARGIN)
 	lbl_policy.set_margin_right(MARGIN)
-	lbl_policy.set_line_wrap(True)
 	lbl_policy.set_selectable(True)
-	box_result.add(lbl_policy)
+	box_scroll_result.add(lbl_policy)
+	box_result.add(box_scroll_result)
+	#Copy button
 	btn_copy=Gtk.Button.new_from_icon_name(Gtk.STOCK_COPY,Gtk.IconSize.BUTTON)
 	btn_copy.set_tooltip_text(_("Copy to clipboard"))
 	btn_copy.connect("clicked",_copy_clipboard)
 	box_result.add(btn_copy)
+	rvl_result.add(box_result)
 	box.add(rvl_result)
 	window.add(box)
 	window.show_all()
@@ -165,21 +188,7 @@ def _set_css_info():
 		font-family: Roboto;
 	}
 
-	#NOTIF_LABEL{
-		background-color: #3366cc;
-		font: 11px Roboto;
-		color:white;
-		border: dashed 1px silver;
-		padding:6px;
-	}
 
-	#ERROR_LABEL{
-		background-color: red;
-		font: 11px Roboto;
-		color:white;
-		border: dashed 1px silver;
-		padding:6px;
-	}
 
 	#ENTRY_LABEL{
 		color:grey;
@@ -187,29 +196,6 @@ def _set_css_info():
 		padding-bottom:0px;
 	}
 
-	#PLAIN_BTN,#PLAIN_BTN:active{
-		border:0px;
-		padding:0px;
-		background:white;
-	}
-	
-	#PLAIN_BTN_DISABLED,#PLAIN_BTN_DISABLED:active{
-		border:0px;
-		padding:0px;
-		background:white;
-		font:grey;
-	}
-
-	#COMPONENT{
-		padding:3px;
-		border: dashed 1px silver;
-
-	}
-
-	#WHITE_BACKGROUND {
-		background-color:rgba(255,255,255,1);
-	
-	}
 
 	#BLUE_FONT {
 		color: #3366cc;
@@ -217,45 +203,14 @@ def _set_css_info():
 		
 	}	
 	
-
-	#TASKGRID_FONT {
-		color: #3366cc;
-		font: Roboto 11;
-		
-	}
-
-	#LABEL #LABEL_INSTALL{
+	#BTN_ITEM {
 		padding: 6px;
 		margin:6px;
 		font: 12px Roboto;
-	}
-
-	#LABEL_OPTION{
-	
-		font: 48px Roboto;
-		padding: 6px;
-		margin:6px;
-		font-weight:bold;
-	}
-
-	#ERROR_FONT {
-		color: #CC0000;
-		font: Roboto Bold 11; 
-	}
-
-	#MENUITEM {
-		padding: 12px;
-		margin:6px;
-		font: 24px Roboto;
+		background-image:-gtk-gradient(linear, left top, left bottom, from (#7ea8f2),to (#7ea8f2));
+		box-shadow: -0.5px 3px 2px #aaaaaa;
 		background:white;
 	}
-
-	#BLUEBUTTON {
-		background-color: #3366cc;
-		color:white;
-		font: 11px Roboto Bold;
-	}
-
 	"""
 	style_provider=Gtk.CssProvider()
 	style_provider.load_from_data(css)
