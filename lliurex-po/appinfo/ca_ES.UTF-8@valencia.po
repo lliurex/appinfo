@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-17 08:47+0200\n"
+"PO-Revision-Date: 2018-09-17 09:05+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ca_ES\n"
+
+#: ../src/appinfo.py:54
+#, python-format
+msgid ""
+"<small>Package:</small> %s %s %s\n"
+"<small>Origin:</small> %s\n"
+"<span color='blue'><sub><span underline='single'>More details</span>...</"
+"sub></span>"
+msgstr ""
+"<small>Paquet:</small> %s %s %s\n"
+"<small>Origen:</small> %s\n"
+"<span color='blue'><sub><span underline='single'>Més detalls</span>...</"
+"sub></span>"
+
+#: ../src/appinfo.py:55
+#, python-format
+msgid ""
+"Package: %s %s %s\n"
+"Origin: %s"
+msgstr ""
+"Paquet: %s %s %s\n"
+"Origen: %s"
+
+#: ../src/appinfo.py:60
+msgid "Package not found/not installed"
+msgstr "Paquet no trobat/no instal·lat"
+
+#: ../src/appinfo.py:111
+msgid "Package's name"
+msgstr "Nom del paquet"
+
+#: ../src/appinfo.py:117
+msgid "Package name"
+msgstr "Nom del paquet"
+
+#: ../src/appinfo.py:162
+msgid "Copy to clipboard"
+msgstr "Copia al porta-retalls"
