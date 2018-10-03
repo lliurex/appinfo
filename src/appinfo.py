@@ -199,7 +199,7 @@ def _set_css_info():
 
 	#BLUE_FONT {
 		color: #3366cc;
-		font: Roboto Bold 11;
+		font: 11px Roboto Bold;
 		
 	}	
 	
