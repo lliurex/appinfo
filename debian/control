@@ -1,0 +1,13 @@
+Source: appinfo
+Section: admin
+Priority: extra
+Maintainer: LliureX Team <lliurex@gva.es>
+Build-Depends: debhelper (>= 8.0.0),llxsrchelper,llxcfg-dev
+Standards-Version: 3.9.5
+Homepage: http://www.lliurex.net
+
+Package: appinfo
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3, python3-lliurex-store, gir1.2-gtk-3.0
+Description: appInfo
+ Display info about an installed package

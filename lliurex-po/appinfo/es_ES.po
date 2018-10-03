@@ -1,0 +1,46 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-11 15:54+0200\n"
+"PO-Revision-Date: 2018-09-11 15:55+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es_ES\n"
+
+#: ../src/appinfo.py:54
+#, python-format
+msgid ""
+"Package: %s %s %s\n"
+"Origin: %s\n"
+"<span color='blue'><span underline='single'>More details</span>...</span>"
+msgstr ""
+"Paquete: %s %s %s\n"
+"Origen: %s\n"
+"<span color='blue'><span underline='single'>Más detalles</span>...</span>"
+
+#: ../src/appinfo.py:57
+msgid "Package not found/not installed"
+msgstr "Paquete no encontrado/no instalado"
+
+#: ../src/appinfo.py:102
+msgid "Package's name"
+msgstr "Nombre del paquete"
+
+#: ../src/appinfo.py:108
+msgid "Package name"
+msgstr "Nombre del paquete"
+
+#: ../src/appinfo.py:140
+msgid "Copy to clipboard"
+msgstr "Copiar al portapapeles"
