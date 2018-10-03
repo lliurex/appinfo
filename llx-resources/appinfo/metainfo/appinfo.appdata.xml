@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+<id>appinfo</id>
+<metadata_license>CC0-1.0</metadata_license>
+<name>Appinfo</name>
+<name xml:lang="en">Appinfo</name>
+<name xml:lang="es">Appinfo</name>
+<name xml:lang="ca_ES.UTF-8@valencia">Appinfo</name>
+<name xml:lang="ca_ES">Appinfo</name>
+<summary>Get info of an installed app</summary>
+<summary xml:lang="es">Muestra información de las aplicaciones instaladas</summary>
+<summary xml:lang="ca_ES.UTF-8@valencia">Mostra informació de les aplicacions instal·lades</summary>
+<summary xml:lang="ca_ES@valencia">Mostra informació de les aplicacions instal·lades</summary>
+<summary xml:lang="ca_ES">Mostra informació de les aplicacions instal·lades</summary>
+<description>
+<p>Get info of an installed app.</p>
+<p xml:lang="es">Muestra información de las aplicaciones instaladas</p>
+<p xml:lang="ca_ES.UTF-8@valencia">Mostra informació de les aplicacions instal·lades</p>
+<p xml:lang="ca_ES@valencia">Mostra informació de les aplicacions instal·lades</p>
+<p xml:lang="ca_ES">Mostra informació de les aplicacions instal·lades</p>
+</description>
+<categories>
+<category>Administration</category>
+<category>LliureX</category>
+
+</categories>
+<icon type="stock">appinfo</icon>
+<provides><binary>/usr/bin/appinfo</binary></provides>
+<keywords>
+<keyword>appinfo</keyword>
+<keyword>Appinfo</keyword>
+</keywords>
+<keywords xml:lang="en">
+</keywords>
+<keywords xml:lang="es">
+</keywords>
+<keywords xml:lang="ca_ES.UTF-8@valencia">
+</keywords>
+<keywords xml:lang="ca_ES">
+
+</keywords>
+</component>
