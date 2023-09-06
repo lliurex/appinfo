@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import os
 import subprocess
-from lliurexstore.plugins import debManager
 
 import gi
 gi.require_version('Gtk','3.0')
@@ -21,29 +20,36 @@ RSRC_DIR='/usr/share/appinfo/rsrc'
 
 class policy:
 	def __init__(self):
-		self.debman=debManager.debmanager()
+#		self.debman=debManager.debmanager()
 		appinfo={'id':None,'package':None,'version':None,'arch':None,'origin':None,'policy':None}
 	def _get_info(self,pkgname):
-		appinfo={'package':pkgname}
-		res=self.debman.execute_action('policy',[appinfo],2)
-		if res['status']['status']==0:
-			try:
-				for app in res['data']:
-					info_array=app['id'].split(';')
-					appinfo['package']=info_array[0]
-					appinfo['version']=info_array[1]
-					appinfo['arch']=info_array[2]
-					appinfo['origin']=info_array[3]
-			except:
-				pass
-			try:
-				result=subprocess.run(["apt-cache","policy",info_array[0]],stdout=subprocess.PIPE,universal_newlines=True)
-				appinfo['policy']=result.stdout
-			except Exception as e:
-				print(e)
-				pass
-		else:
+		appinfo={'package':pkgname,'origin':'unknown'}
+	#	res=self.debman.execute_action('policy',[appinfo],2)
+	#	if res['status']['status']==0:
+	#		try:
+	#			for app in res['data']:
+	#				info_array=app['id'].split(';')
+	#				appinfo['package']=info_array[0]
+	#				appinfo['version']=info_array[1]
+	#				appinfo['arch']=info_array[2]
+	#				appinfo['origin']=info_array[3]
+	#		except:
+	#			pass
+		try:
+			result=subprocess.run(["apt-cache","show",pkgname],stdout=subprocess.PIPE,universal_newlines=True)
+		except Exception as e:
+			print(e)
 			appinfo=None
+		if len(result.stdout)>0:
+			appinfo['policy']=result.stdout
+			for line in result.stdout.split("\n"):
+				if line.startswith("Version"):
+					appinfo['version']=":".join(line.split(":")[1:]).strip()
+				if line.startswith("Architecture"):
+					appinfo['arch']=":".join(line.split(":")[1:]).strip()
+			result=subprocess.run(["apt-cache","policy",pkgname],stdout=subprocess.PIPE,universal_newlines=True)
+			if len(result.stdout)>0:
+				appinfo['policy']="{}\n=====\n{}".format(appinfo['policy'],result.stdout)
 		return appinfo
 
 
@@ -55,7 +61,7 @@ def _render_gui():
 				desc_txt=_("Package: %s %s %s\nOrigin: %s")%(info['package'],info['version'],info['arch'],info['origin'])
 				lbl_result.set_markup(desc_md)
 				btn_result.set_tooltip_text(desc_txt)
-				lbl_policy.set_markup("%s"%info['policy'])
+				lbl_policy.set_text("%s"%info['policy'])
 			else:
 				lbl_result.set_label(_("Package not found/not installed"))
 				lbl_policy.set_markup("")
