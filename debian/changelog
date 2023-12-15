@@ -1,3 +1,9 @@
+appinfo (0.4) jammy; urgency=medium
+
+  * Qt port
+
+ -- Juanma1980 <juanma1980@gmail.com>  Fri, 15 Dec 2023 17:21:37 +0100
+
 appinfo (0.3.1lliurex23) jammy; urgency=medium
 
   * Jammy release
