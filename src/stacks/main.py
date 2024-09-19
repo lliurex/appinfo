@@ -1,8 +1,8 @@
 import sys
 import os
-from PySide2.QtWidgets import QApplication, QLabel, QPushButton,QGridLayout,QLineEdit,QWidget,QTextEdit
+from PySide2.QtWidgets import QLabel, QPushButton,QGridLayout,QLineEdit,QTextEdit
 from PySide2 import QtGui
-from PySide2.QtCore import Qt,QSize,Signal
+from PySide2.QtCore import Qt
 from QtExtraWidgets import QStackedWindowItem
 import subprocess
 import gettext
