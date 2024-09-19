@@ -1,29 +1,19 @@
 #!/usr/bin/env python3
 import sys
-import subprocess
-import os,shutil
-import json
-from PySide2.QtWidgets import QApplication,QDialog,QGridLayout,QLabel,QPushButton,QLayout,QSizePolicy,QDesktopWidget
-from PySide2.QtCore import Qt
-from PySide2 import QtGui
-from appconfig.appConfigScreen import appConfigScreen as appConfig
-from appconfig import appconfigControls
+import os
+from PySide2.QtWidgets import QApplication
+from QtExtraWidgets import QStackedWindow
 import gettext
-import time
+gettext.textdomain('appinfo')
 _ = gettext.gettext
-
 app=QApplication(["appInfo"])
-config=appConfig("appInfo",{'app':app})
-config.setWindowTitle("appInfo")
-config.setRsrcPath('/usr/share/appinfo/rsrc')
-config.setIcon('appinfo')
-#config.setWiki('https://wiki.edu.gva.es/lliurex/tiki-index.php?page=Accesibilidad%20en%20Lliurex:%20Access%20Helper')
-config.setBanner('appinfo.png')
-#config.hideNavMenu(True)
-#config.setBackgroundImage('repoman_login.svg')
-config.setConfig(confDirs={'system':'/usr/share/rebost','user':os.path.join(os.environ['HOME'],".config/rebost")},confFile="store.json")
-config.Show()
-config.setMinimumWidth(config.sizeHint().width()*1.5)
-config.setMinimumHeight(config.sizeHint().height()*1.1)
-
+config=QStackedWindow()
+if os.path.islink(__file__)==True:
+	abspath=os.path.join(os.path.dirname(__file__),os.path.dirname(os.readlink(__file__)))
+else:
+	abspath=os.path.dirname(__file__)
+config.addStacksFromFolder(os.path.join(abspath,"stacks"))
+config.setBanner("/usr/share/appinfo/rsrc/appinfo.png")
+config.setIcon("appinfo")
+config.show()
 app.exec_()

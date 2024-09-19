@@ -3,8 +3,7 @@ import os
 from PySide2.QtWidgets import QApplication, QLabel, QPushButton,QGridLayout,QLineEdit,QWidget,QTextEdit
 from PySide2 import QtGui
 from PySide2.QtCore import Qt,QSize,Signal
-from appconfig.appConfigStack import appConfigStack as confStack
-from appconfig import appconfigControls
+from QtExtraWidgets import QStackedWindowItem
 import subprocess
 import gettext
 _ = gettext.gettext
@@ -37,7 +36,7 @@ class policy:
 	#def getInfo
 
 
-class main(confStack):
+class main(QStackedWindowItem):
 	def __init_stack__(self):
 		self.dbg=False
 		self.enabled=True
@@ -50,7 +49,7 @@ class main(confStack):
 		self.icon=('application-x-desktop')
 		self.show()
 
-	def _load_screen(self):
+	def __initScreen__(self):
 		lay=QGridLayout()
 		lay.setHorizontalSpacing(0)
 		self.setLayout(lay)
@@ -71,7 +70,7 @@ class main(confStack):
 		btnCopy.setIcon(icn)
 		btnCopy.clicked.connect(self._copyToClipboard)
 		lay.addWidget(btnCopy,2,1,1,1)
-	#def _load_screen
+	#def __initScreen__
 		
 	def _searchPkg(self):
 		self.txtEdit.setText("")
