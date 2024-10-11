@@ -1,6 +1,12 @@
+appinfo (0.5) noble; urgency=medium
+
+  * PySide6 port
+
+ -- Juanma1980 <juanma1980@gmail.com>  Fri, 11 Oct 2024 07:30:08 +0200
+
 appinfo (0.4-0lliurex25) noble; urgency=medium
 
-  * Jammy release
+  * Noble release
 
  -- Juanma1980 <juanma1980@gmail.com>  Thu, 19 Sep 2024 10:06:18 +0200
 
